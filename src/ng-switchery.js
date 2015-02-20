@@ -28,7 +28,7 @@ angular.module('NgSwitchery', [])
             var previousDisabledValue;
             // Watch for attribute changes to recreate the switch if the 'disabled' attribute changes
             attrs.$observe('disabled', function(value) {
-              if (value == undefined || value == previousDisabledValue) {
+              if (value === undefined || value == previousDisabledValue) {
                 return;
               } else {
                 previousDisabledValue = value;
@@ -50,8 +50,11 @@ angular.module('NgSwitchery', [])
                 element.addEventListener('change',function(evt) {
                     scope.$apply(function() {
                         ngModel.$setViewValue(element.checked);
-                    })
-                })
+                    });
+                });
+                scope.$watch('initValue', function(newValue, oldValue) {
+                    switcher.setPosition(false);
+                });
               }, 0);
             }
             initializeSwitch();
